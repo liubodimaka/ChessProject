@@ -5,9 +5,84 @@ const int w = 8;
 
 class Piece {
 private:
-    //char board[8][8];
+    char pieceType;
+    int posX;
+    int posY;
+    bool isOccupied;
+    bool isWhite;
+
+
+    Piece(){
+
+    }
+
+
+    void diagonal(){
+
+    }
+
+    void horizontal(){
+
+    }
+
+    void vertical(){
+
+    }
+
+    //Checks if the piece can move on a certain square
+    void move(){
+
+    }
+
+
 
 };
+
+Piece : public King {
+
+    bool move(xF, yF){
+
+    }
+}
+
+Piece : public Pawn {
+    bool move(xF, yF){
+
+    }
+}
+
+Piece : public Bishop {
+    bool move(xF, yF){
+
+    }
+}
+
+Piece : public Rook {
+    bool move(xF, yF){
+
+    }
+}
+
+Piece : public Knight {
+    bool move(xF, yF){
+
+    }
+}
+
+Piece : public Queen {
+    bool move(xF, yF){
+
+    }
+}
+Piece : emptySquare(){
+    emptySquare():{
+        posX = ;
+        posY = ;
+        isOccupied = false;
+
+    }
+}
+
 
 
 //Creates an empty array representing the chessboard and returns it
@@ -75,16 +150,16 @@ void startGame(char board[w][w]) {
 
 //Converts lowercase letter to X position 
 //on the board
-bool convertLetterToX(string move) {
+bool convertLetterToX(string move, int posX) {
     char  letterA = 'a';
     if (move.length() == 4 && (move[2] - letterA <= 8)) {
-
+        posX = move[2] - letterA;
     }
     else if (move.length() == 3 && (move[1] - letterA <= 8)) {
-
+        posX = move[1] - letterA;
     }
     else if (move.length() == 2 && (move[0] - letterA <= 8)) {
-
+        posX = move[0] - letterA;
     }
 }
 
