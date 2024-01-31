@@ -8,14 +8,11 @@ private:
     char pieceType;
     int posX;
     int posY;
-    bool isOccupied;
     bool isWhite;
 
-
-    Piece(){
-
+    char getPiece(){
+        return pieceType;
     }
-
 
     void diagonal(){
 
@@ -38,58 +35,106 @@ private:
 
 };
 
-Piece : public King {
+class Piece : public King {
+
+    King(int x, int y, bool isWhite){
+        pieceType = 'K';
+        posX = x;
+        posY = y; 
+        this->isWhite = isWhite;
+    }
 
     bool move(xF, yF){
 
     }
 }
 
-Piece : public Pawn {
+class Piece : public Pawn {
+
+    Pawn(int x, int y, bool isWhite){
+        pieceType = "P";
+        posX = x;
+        posY = y; 
+        this->isWhite = isWhite;
+    }
+
     bool move(xF, yF){
 
     }
 }
 
-Piece : public Bishop {
+class Piece : public Bishop {
+
+    Bishop(int x, int y, bool isWhite){
+        pieceType = 'B';
+        posX = x;
+        posY = y; 
+        this->isWhite = isWhite;
+    }
+
     bool move(xF, yF){
 
     }
 }
 
-Piece : public Rook {
+class Piece : public Rook {
+
+    Rook(int x, int y, bool isWhite){
+        pieceType = 'R';
+        posX = x;
+        posY = y; 
+        this->isWhite = isWhite;
+    }
+
     bool move(xF, yF){
 
     }
 }
 
-Piece : public Knight {
+class Piece : public Knight {
+
+    Knight(int x, int y, bool isWhite){
+        pieceType = 'N';
+        posX = x;
+        posY = y; 
+        this->isWhite = isWhite;
+    }
+
     bool move(xF, yF){
 
     }
 }
 
-Piece : public Queen {
+class Piece : public Queen {
+
+    Queen(int x, int y, bool isWhite){
+    pieceType = 'Q';
+    posX = x;
+    posY = y; 
+    this->isWhite = isWhite;
+    }
+
     bool move(xF, yF){
 
     }
 }
-Piece : emptySquare(){
-    emptySquare():{
-        posX = ;
-        posY = ;
-        isOccupied = false;
+class Piece : emptySquare(){
 
+    emptySquare(int x, int y){
+        pieceType = '0';
+        posX = x; 
+        posY = y;
     }
+
 }
 
 
 
 //Creates an empty array representing the chessboard and returns it
-void Chessboard(char board[w][w]) {
+void Chessboard(Piece board[w][w]) {
     for (int x = 0; x < w; x++) {
         for (int y = 0; y < 8; y++) {
-            board[x][y] = '0';
+            board[x][y] = emptySquare(x, y);
         }
     }
 
@@ -97,52 +142,52 @@ void Chessboard(char board[w][w]) {
 
 
 //Sets the board to its default state and returns the updated state
-void initialState(char board[w][w]) {
+void initialState(Piece board[w][w]) {
     // Black Pieces
-    board[w - 8][w - 8] = 'r';
-    board[w - 8][w - 1] = 'r';
-    board[w - 8][w - 7] = 'n';
-    board[w - 8][w - 2] = 'n';
-    board[w - 8][w - 6] = 'b';
-    board[w - 8][w - 3] = 'b';
-    board[w - 8][w - 5] = 'k';
-    board[w - 8][w - 4] = 'q';
+    board[0][0] = new Rook(0, 0, false);
+    board[0][7] = new Rook(0, 7, false);
+    board[0][1] = new Knight(0, 1, false);
+    board[0][6] = new Knight(0, 6, false);
+    board[0][2] = new Bishop(0, 2, false);
+    board[0][5] = new Bishop(0, 5, false);
+    board[0][3] = new King(0, 3, false);
+    board[0][4] = new Queen(0, 4, false);
 
     // Black Pawns
     for (int i = 0; i < w; i++) {
-        board[w - 7][i] = 'p';
+        board[1][i] = new Pawn(1);
     }
 
 
     // White Pieces
-    board[w - 1][w - 8] = 'R';
-    board[w - 1][w - 1] = 'R';
-    board[w - 1][w - 7] = 'N';
-    board[w - 1][w - 2] = 'N';
-    board[w - 1][w - 6] = 'B';
-    board[w - 1][w - 3] = 'B';
-    board[w - 1][w - 5] = 'Q';
-    board[w - 1][w - 4] = 'K';
+    board[7][0] = new Rook(7, 0, true);
+    board[7][7] = new Rook(7, 7, true);
+    board[7][1] = new Knight(7, 1, true);
+    board[7][6] = new Knight(7, 6, true);
+    board[7][2] = new Bishop(7, 2, true);
+    board[7][5] = new Bishop(7, 5, true);
+    board[7][3] = new Queen(7, 3, true);
+    board[7][4] = new King(7, 4, true);
 
     // White Pawns
     for (int i = 0; i < w; i++) {
-        board[w - 2][i] = 'P';
+        board[6][i] = new Pawn(6, i, true);
     }
 
 }
 
 
 //Prints the board to the console
-void printBoard(char board[w][w]) {
+void printBoard(Piece board[w][w]) {
     for (int x = 0; x < w; x++) {
         for (int y = 0; y < w; y++) {
-            cout << board[x][y] << " ";
+            cout << board[x][y].getPiece() << " ";
         }
         cout << endl;
     }
 }
 
-void startGame(char board[w][w]) {
+void startGame(Piece board[w][w]) {
     Chessboard(board);
     initialState(board);
 }
