@@ -2,7 +2,7 @@
 using namespace std;
 const int w = 8;
 
-
+//Create objects of derived class based on piece type
 class Piece {
 private:
     char pieceType;
@@ -12,6 +12,25 @@ private:
 
     char getPiece(){
         return pieceType;
+    }
+
+    void replace(Piece board[w][w], int xI, int yI, xF, yF, bool white, char type){
+        boardI[xI][yI] = new emptySquare(xI, yI);
+        board[]
+
+        if(type == 'R'){
+            board[xF][yF] = new Rook(xF, yF, white);
+        } else if(type == 'K'){
+            board[xF][yF] = new King(x, y, white);
+        } else if(type == 'N'){
+            board[xF][yF] = new Knight(xF, yF, white);
+        } else if(type == 'B'){
+        board[xF][yF] = new Bishop(xF, yF, white);
+        } else if(type == 'P'){
+            board[xF][yF] = new Pawn(xF, yF, white);
+        } else if(type == 'Q'){
+            board[xF][yF] = new Queen(xF, yF, white);
+        }
     }
 
     void diagonal(){
@@ -27,7 +46,7 @@ private:
     }
 
     //Checks if the piece can move on a certain square
-    void move(){
+    virtual void move(){
 
     }
 
@@ -45,7 +64,7 @@ class Piece : public King {
     }
 
     bool move(xF, yF){
-
+        
     }
 }
 
@@ -59,7 +78,7 @@ class Piece : public Pawn {
     }
 
     bool move(xF, yF){
-
+        Piece.replace(board, xI, yI, xF, yF, isWhite, pieceType);
     }
 }
 
@@ -72,8 +91,8 @@ class Piece : public Bishop {
         this->isWhite = isWhite;
     }
 
-    bool move(xF, yF){
-
+    bool move(Piece board[w][w],xF, yF){
+        Piece.replace(board, xI, yI, xF, yF, isWhite, pieceType);
     }
 }
 
@@ -87,7 +106,7 @@ class Piece : public Rook {
     }
 
     bool move(xF, yF){
-
+        Piece.replace(board, xI, yI, xF, yF, isWhite, pieceType);
     }
 }
 
