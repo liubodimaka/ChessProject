@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 const int w = 8;
 
@@ -14,35 +15,79 @@ private:
         return pieceType;
     }
 
-    void replace(Piece board[w][w], int xI, int yI, xF, yF, bool white, char type){
-        boardI[xI][yI] = new emptySquare(xI, yI);
-        board[]
+    bool getColor(){
+        return isWhite;
+    }
 
-        if(type == 'R'){
+    void place(Piece board[w][w], int xI, int yI, xF, yF, bool white, char type){
+        boardI[xI][yI] = new emptySquare(xI, yI);
+
+        switch(type){
+            case 'R':
             board[xF][yF] = new Rook(xF, yF, white);
-        } else if(type == 'K'){
-            board[xF][yF] = new King(x, y, white);
-        } else if(type == 'N'){
+            break;
+            case 'N':
             board[xF][yF] = new Knight(xF, yF, white);
-        } else if(type == 'B'){
-        board[xF][yF] = new Bishop(xF, yF, white);
-        } else if(type == 'P'){
+            break;
+            case 'B':
+            board[xF][yF] = new Bishop(xF, yF, white);
+            break;
+            case 'P':
             board[xF][yF] = new Pawn(xF, yF, white);
-        } else if(type == 'Q'){
+            break;
+            case 'Q':
             board[xF][yF] = new Queen(xF, yF, white);
+            break;
+            case 'K':
+            board[xF][yF] = new King(xF, yF, white);
+            break;
         }
     }
 
-    void diagonal(){
-
+    bool isValid(xF, yF){
+        if(xF < 8 && xF >= 0 && yF < 8 && yF >= 0){
+            return true;
+        }
+        return false;
     }
 
-    void horizontal(){
-
+    bool isDiagonal(int xI, int yI, int xF, int yF){
+        if((int)abs(xF - xI) == (int)abs(yF-yI)){
+            return true;
+        }
+        return false;
     }
 
-    void vertical(){
+    bool isHorizontal(int xI, int yI, int xF, int yF){
+        if(yI == yF){
+            return true;
+        }
+        return false;
+    }
 
+    bool isVertical(int xI, int yI, int xF, int yF){
+        if(xI == xF){
+            return true;
+        }
+        return false;
+    }
+
+    bool isL(int xI, int yI, int xF, int yF){
+        if(((int)abs(xF - xI) == 2 && (int)(abs)(yF-yI) == 1) ||
+         ((int)abs(xF - xI) == 1 && (int)(abs)(yF-yI) == 2))){
+            return true;
+        }
+
+        return false;
+    }
+
+    //Checks if the square is occupied by a piece of the same color
+    bool isOccupied(int x, int y, Piece board[w][w], bool isWhite){
+        if(board[x][y].getType() != '0' && 
+        (board[x][y].getColor() != isWhite)){
+            return true;
+        }
+        return false;
     }
 
     //Checks if the piece can move on a certain square
@@ -63,22 +108,27 @@ class Piece : public King {
         this->isWhite = isWhite;
     }
 
-    bool move(xF, yF){
+    bool move(int xF, int yF){
         
     }
 }
 
 class Piece : public Pawn {
+    int numMoves;
 
     Pawn(int x, int y, bool isWhite){
+        numMoves = 0;
         pieceType = "P";
         posX = x;
         posY = y; 
         this->isWhite = isWhite;
     }
 
-    bool move(xF, yF){
-        Piece.replace(board, xI, yI, xF, yF, isWhite, pieceType);
+    bool move(int xF, int yF){
+        if(xF-x <= 2 && numMoves == 0 && Piece.isHorizontal(xF, yF)){
+            numMoves++;
+        }
+        Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
     }
 }
 
@@ -91,14 +141,16 @@ class Piece : public Bishop {
         this->isWhite = isWhite;
     }
 
-    bool move(Piece board[w][w],xF, yF){
-        Piece.replace(board, xI, yI, xF, yF, isWhite, pieceType);
+    bool move(Piece board[w][w], int xF, int yF){
+        Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
     }
 }
 
 class Piece : public Rook {
+    int numMoves;
 
     Rook(int x, int y, bool isWhite){
+        numMoves = 0;
         pieceType = 'R';
         posX = x;
         posY = y; 
@@ -106,7 +158,7 @@ class Piece : public Rook {
     }
 
     bool move(xF, yF){
-        Piece.replace(board, xI, yI, xF, yF, isWhite, pieceType);
+        Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
     }
 }
 
@@ -119,8 +171,10 @@ class Piece : public Knight {
         this->isWhite = isWhite;
     }
 
-    bool move(xF, yF){
-
+    bool move(int xF, int yF){
+        if(Piece.isL(xF, yF) && ){
+            Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
+        }
     }
 }
 
@@ -133,8 +187,8 @@ class Piece : public Queen {
     this->isWhite = isWhite;
     }
 
-    bool move(xF, yF){
-
+    bool move(int xF, int yF){
+        Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
     }
 }
 class Piece : emptySquare(){
@@ -204,116 +258,4 @@ void printBoard(Piece board[w][w]) {
         }
         cout << endl;
     }
-}
-
-void startGame(Piece board[w][w]) {
-    Chessboard(board);
-    initialState(board);
-}
-
-
-//Converts lowercase letter to X position 
-//on the board
-bool convertLetterToX(string move, int posX) {
-    char  letterA = 'a';
-    if (move.length() == 4 && (move[2] - letterA <= 8)) {
-        posX = move[2] - letterA;
-    }
-    else if (move.length() == 3 && (move[1] - letterA <= 8)) {
-        posX = move[1] - letterA;
-    }
-    else if (move.length() == 2 && (move[0] - letterA <= 8)) {
-        posX = move[0] - letterA;
-    }
-}
-
-
-//Account for multiple pieces that can move on the same square,
-//check, checkmate, taking, and any combination of these
-//Converts piece 
-//add castle(move == "O-O-O || O-O") and take cases(move.length() == 4)
-bool convertToPiece(string move, char piece,
-    bool isKingCastle, bool isQueenCastle) {
-    if (move == "O-O-O") {
-        isQueenCastle = true;
-    }
-    else if (move == "O-O") {
-        isKingCastle = true;
-    }
-    else if (move.length() == 3) {
-        switch (move[0]) {
-        case 'N':
-            piece = 'N';
-            return true;
-            break;
-        case 'B':
-            piece = 'B';
-            return true;
-            break;
-        case 'R':
-            piece = 'R';
-            return true;
-            break;
-        case 'Q':
-            piece = 'Q';
-            return true;
-            break;
-        case 'K':
-            piece = 'K';
-            return true;
-            break;
-        }
-    }
-    else if (move.length() == 2) {
-        piece = 'p';
-    }
-    return true;
-    return false;
-}
-
-//Converts input to 
-bool convertToPosition(string move, int posX, int posY) {
-    //switch(move[])
-    return true;
-}
-
-//Asks for input in chess notation and 
-//converts to move on board
-void convertToMove(char board[w][w], string move) {
-    //Unicode characters are ordered alphanumberically
-    //move.length() ==2;
-    //move[0] <= h
-    //int y = stoi(move, 1)
-    //y <= 8
-    //switch case for every piece
-    //determine if it's black or white's move - turn % 2 = 0
-    int posX;
-    int posY;
-    while (true) {
-        string move;
-        cin >> move;
-        if (move.length() == 2) {
-            convertToPosition(move, posX, posY);
-        }
-        else if (move.length() == 3) {
-            convertToPosition(move, posX, posY);
-        }
-
-    }
-
-}
-
-//Runs the Game
-int main() {
-    int turn = 0;
-    bool checkmate = false;
-    char board[w][w];
-
-    startGame(board);
-    //while (!checkmate) {
-
-    printBoard(board);
-    turn++;
-    //}
-
 }
