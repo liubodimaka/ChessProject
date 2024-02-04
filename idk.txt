@@ -1,0 +1,11 @@
+//Ideas for check
+ - every time a piece moves, check if the king is put in check
+ - discovered check
+
+
+//Ideas for checkmate
+ - check every move on every turn(slow but works)
+ - idk
+
+ //Stalemate
+  - check if there's any available moves every turn(not slow until endgame)

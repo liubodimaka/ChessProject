@@ -102,14 +102,27 @@ private:
 class Piece : public King {
 
     King(int x, int y, bool isWhite){
+        int numMoves = 0;
         pieceType = 'K';
         posX = x;
         posY = y; 
         this->isWhite = isWhite;
     }
 
-    bool move(int xF, int yF){
-        
+    bool canCastle(){
+        if(numMoves == 0 ){
+            return true;
+        }
+        return false;
+    }
+
+
+    bool canMove(int xF, int yF){
+        if(Piece.isValid() && !isOccupied() && xFi - x <= 1 
+        && yF - y <= 1){
+            return true;
+        }
+        return false;
     }
 }
 
@@ -141,8 +154,10 @@ class Piece : public Bishop {
         this->isWhite = isWhite;
     }
 
-    bool move(Piece board[w][w], int xF, int yF){
-        Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
+    bool canMove(Piece board[w][w], int xF, int yF){
+        if(isDiagonal(xF, yF) && isValid(xF, yF, isWhite)){
+            Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
+        }
     }
 }
 
@@ -157,8 +172,10 @@ class Piece : public Rook {
         this->isWhite = isWhite;
     }
 
-    bool move(xF, yF){
-        Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
+    bool canMove(xF, yF){
+        if((Piece.isVertical(xF, yF) || Piece.isHorizontal(xF, yF) && isValid(xF, yF, isWhite))){
+            Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
+        }
     }
 }
 
@@ -172,7 +189,7 @@ class Piece : public Knight {
     }
 
     bool move(int xF, int yF){
-        if(Piece.isL(xF, yF) && ){
+        if(Piece.isL(xF, yF) && Piece.isValid(xF, yF, isWhite)){
             Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
         }
     }
@@ -188,7 +205,10 @@ class Piece : public Queen {
     }
 
     bool move(int xF, int yF){
-        Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
+        if((Piece.isDiagonal(xF, yF) || Piece.isHorizontal(xF, yF) || Piece.isVertical(xF, yF)) 
+        && isValid(xF, yF, isWhite)){
+            Piece.place(board, xI, yI, xF, yF, isWhite, pieceType);
+        }
     }
 }
 class Piece : emptySquare(){
