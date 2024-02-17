@@ -52,24 +52,36 @@ private:
     }
 
     bool isDiagonal(int xI, int yI, int xF, int yF){
-        if((int)abs(xF - xI) == (int)abs(yF-yI)){
-            return true;
-        }
-        return false;
+            if((int)abs(xF - xI) == (int)abs(yF-yI)){
+                for(int i = 0; i < ; i++){
+                    if(isOccupied()){
+                        return false;
+                    }
+                }
+            }
+        return true;
     }
 
     bool isHorizontal(int xI, int yI, int xF, int yF){
         if(yI == yF){
-            return true;
+            for(int i = 0; i < xF-xI; i++){
+                if(isOccupied()){
+                    return false;
+                }
+            }
         }
-        return false;
+        return true;
     }
 
     bool isVertical(int xI, int yI, int xF, int yF){
         if(xI == xF){
-            return true;
+            for(int i = 0; i < yF-yI; i++){
+                if(isOccupied()){
+                    return false;
+                }
+            }
         }
-        return false;
+        return true;
     }
 
     bool isL(int xI, int yI, int xF, int yF){
